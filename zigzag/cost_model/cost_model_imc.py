@@ -100,7 +100,7 @@ class CostModelEvaluationForIMC(CostModelEvaluation):
         4) Finally, we combine the stall/slack of each memory port to get the final latency.
         """
         super().calc_double_buffer_flag()
-        super().calc_allowed_and_real_data_transfer_cycle_per_DTL()
+        super().calc_allowed_and_real_data_transfer_cycle_per_data_transfer_link()
         # Update the latency model to fit IMC requirement
         super().combine_data_transfer_rate_per_physical_port()
         self.update_tclk()
@@ -110,8 +110,7 @@ class CostModelEvaluationForIMC(CostModelEvaluation):
         super().calc_overall_latency(cycles_per_mac=cycles_per_mac)
 
     def update_tclk(self):
-        """! This function calculate the Tclk for IMC (In-Memory-Computing)
-        """
+        """! This function calculate the Tclk for IMC (In-Memory-Computing)"""
         self.tclk = self.operational_array.tclk
         self.tclk_breakdown = self.operational_array.tclk_breakdown
 
@@ -120,7 +119,7 @@ class CostModelEvaluationForIMC(CostModelEvaluation):
         # latency_total0 breakdown
         computation_breakdown = {
             "mac_computation": self.ideal_temporal_cycle,
-            "memory_stalling": self.SS_comb,
+            "memory_stalling": self.stall_slack_comb,
         }
 
         return json_repr_handler(
@@ -161,10 +160,10 @@ class CostModelEvaluationForIMC(CostModelEvaluation):
                     },
                     "spatial": {
                         "mac_utilization": {
-                            "ideal": self.MAC_spatial_utilization,
-                            "stalls": self.MAC_utilization0,
-                            "stalls_onloading": self.MAC_utilization1,
-                            "stalls_onloading_offloading": self.MAC_utilization2,
+                            "ideal": self.mac_spatial_utilization,
+                            "stalls": self.mac_utilization0,
+                            "stalls_onloading": self.mac_utilization1,
+                            "stalls_onloading_offloading": self.mac_utilization2,
                         }
                     },
                 },

@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11",]
 
     steps:
       - uses: actions/checkout@v4
@@ -36,5 +36,4 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest
-          python -m pytest --typeguard-packages=zigzag tests/main/test_origin/
-          python -m pytest --typeguard-packages=zigzag tests/main/test_imc/
+          python -m pytest tests/

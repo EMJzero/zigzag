@@ -1,7 +1,6 @@
 import math
 import re
 from typing import TypeAlias
-from typing import TypeAlias
 
 
 from zigzag.workload.LayerAttribute import LayerAttribute
@@ -17,7 +16,6 @@ from zigzag.datatypes import (
     UnrollFactorInt,
 )
 
-InputOperandSource: TypeAlias = dict[LayerOperand, int]
 InputOperandSource: TypeAlias = dict[LayerOperand, int]
 
 
@@ -81,9 +79,6 @@ class LayerDimSizes(LayerAttribute):
 
     def __delitem__(self, key: LayerDim):
         del self.data[key]
-
-    def __add__(self, other: "LayerDimSizes"):
-        return LayerDimSizes(self.data | other.data)
 
     def __add__(self, other: "LayerDimSizes"):
         return LayerDimSizes(self.data | other.data)
@@ -182,18 +177,15 @@ class LayerDimRelation(LayerAttribute):
 
 
 class LayerTemporalOrdering(LayerAttribute):
-    """
-    # TODO is this ever used?
-    """
 
-    def __init__(self, data: dict[LayerOperand, UnrollFactorInt]):
-        self.data = data
+    def __init__(self, data: dict[str, UnrollFactorInt]):
+        self.data = [[LayerDim(loop[0]), loop[1]] for loop in data]
 
     @staticmethod
     def empty():
         return LayerTemporalOrdering({})
 
-    def __delitem__(self, x: LayerOperand):
+    def __delitem__(self, x: LayerDim):
         del self.data[x]
 
 
@@ -207,8 +199,5 @@ class LayerPadding(LayerAttribute):
         return self.data[key] if key in self.data else LayerPadding.DEFAULT
 
     @staticmethod
-    def empty():
-        return LayerPadding({})
-
     def empty():
         return LayerPadding({})
