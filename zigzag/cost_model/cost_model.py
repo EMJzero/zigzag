@@ -961,6 +961,7 @@ class CostModelEvaluation(CostModelEvaluationABC):
                                 mov_dir,
                             )
                             data_offloading_single[str(port)].append(port_activity)
+                            #print(layer_op.name + str(mem_lv) + "_" + str(mov_dir))
                             data_offloading_cc_per_op[layer_op.name + str(mem_lv) + "_" + str(mov_dir)] = real_cycle
 
             data_loading_per_mem_inst.append(data_loading_single)

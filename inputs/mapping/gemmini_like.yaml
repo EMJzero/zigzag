@@ -1,0 +1,29 @@
+- name: default
+  core_allocation: [1]
+#  spatial_mapping_hint:
+#    D1: # first spatially unrolled dimension (X - cols)
+#      - K
+#      - C
+#    D2: # second spatially unrolled dimension (Y - rows)
+#      - K
+  spatial_mapping: # Ds are the fanout dims
+    D1: # first spatially unrolled dimension (X - cols)
+      - C, 16
+    D2: # second spatially unrolled dimension (Y - rows)
+      - K, 16
+  memory_operand_links:
+    O: O
+    W: I2
+    I: I1
+
+
+##### ZigZag Conv -> FF MatMul #####
+# K -> D
+# C -> E
+# OY -> L
+
+##### Translatio ZigZag mapping -> FF:
+# 1) Go top-down over the loops of ZZ
+# 2) Place a loop on the inner-most indicated memory level whose operand is affected by
+#    the dimension currently being iterated (e.g. ignore Out if the loops is on E).
+# 3) Verify dataflows.

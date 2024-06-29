@@ -1,0 +1,35 @@
+- id: 0 # conv1 stride 2
+  operator_type: Conv
+  equation: O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][iy][ix]
+  dimension_relations: [ix=2*ox+1*fx, iy=2*oy+1*fy]
+  loop_dims: [B, K, C, OY, OX, FY, FX]
+  #            _  D  E  L  _  _  _
+  loop_sizes: [1, 8192, 1024, 8, 1, 1, 1]
+  operand_precision:
+    W: 8
+    I: 8
+    O: 16
+    O_final: 8
+  operand_source:
+    I: 0
+    W: 0
+
+##### ZigZag Conv -> FF MatMul #####
+# K -> D
+# C -> E
+# OY -> L
+
+#- id: 0
+#  operator_type: Gemm
+#  equation: "O[m][n]+=A[m][k]*B[k][n]"
+#  dimension_relations: []
+#  loop_dims: [M, K, N]
+#  loop_sizes: [512, 512, 512]
+#  operand_precision:
+#    O: 32
+#    B: 8
+#    A: 8
+#    O_final: 8
+#  operand_source:
+#    B: 1
+#    A: 0

@@ -1,0 +1,124 @@
+name: simba_like
+
+memories:
+  peWeiR:
+    size: 8
+    r_bw: 128
+    w_bw: 128
+    r_cost: 0.7
+    w_cost: 0.7
+    area: 0.95
+    r_port: 1
+    w_port: 1
+    rw_port: 0
+    latency: 1
+    operands: [I2] #Weights
+    ports:
+      - fh: w_port_1
+        tl: r_port_1
+    served_dimensions: []
+
+  peAccB:
+    size: 1024
+    r_bw: 128
+    w_bw: 128
+    r_cost: 3.93
+    w_cost: 3.93
+    area: 0.3
+    r_port: 2
+    w_port: 2
+    rw_port: 0
+    latency: 1
+    operands: [O] #Outputs
+    ports:
+      - fh: w_port_1
+        tl: r_port_1
+        fl: w_port_2
+        th: r_port_2
+    served_dimensions: [D3]
+
+  peWeiB:
+    size: 262144 # in bits?
+    r_bw: 128
+    w_bw: 128
+    r_cost: 15.16
+    w_cost: 15.16
+    area: 0.3
+    r_port: 1
+    w_port: 1
+    rw_port: 0
+    latency: 1
+    operands: [I2] #Weights
+    ports:
+      - fh: w_port_1
+        tl: r_port_1
+    served_dimensions: [D3]
+
+  peInB:
+    size: 524288
+    r_bw: 128
+    w_bw: 128
+    r_cost: 30.26
+    w_cost: 30.26
+    area: 3
+    r_port: 1
+    w_port: 1
+    rw_port: 0
+    latency: 1
+    operands: [I1] #Inputs
+    ports:
+      - fh: w_port_1
+        tl: r_port_1
+    served_dimensions: [D2, D3]
+
+  globB:
+  # HHHHHHHHHHHHHEEEEEREEEEEEE
+    size: 524288 #add two 00 to allow some MBs layers to run...
+    r_bw: 128
+    w_bw: 128
+    r_cost: 1.85
+    w_cost: 1.85
+    area: 6
+    r_port: 0
+    w_port: 0
+    rw_port: 2
+    latency: 1
+    operands: [I1, O]
+    ports:
+      - fh: rw_port_1
+        tl: rw_port_2
+      - fh: rw_port_1
+        tl: rw_port_2
+        fl: rw_port_2
+        th: rw_port_1
+    served_dimensions: [D1, D2, D3]
+  
+  dram:
+    size: 10000000000
+    r_bw: 4
+    w_bw: 4
+    r_cost: 64
+    w_cost: 64
+    area: 0
+    r_port: 0
+    w_port: 0
+    rw_port: 1
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - fh: rw_port_1
+        tl: rw_port_1
+      - fh: rw_port_1
+        tl: rw_port_1
+      - fh: rw_port_1
+        tl: rw_port_1
+        fl: rw_port_1
+        th: rw_port_1
+    served_dimensions: [D1, D2, D3]
+
+operational_array:
+  input_precision: [8, 8]
+  multiplier_energy: 0.32 # pJ
+  multiplier_area: 0.1 # unit
+  dimensions: [D1, D2, D3]
+  sizes: [16, 4, 4] # VScores: [8, 8] #KQV: [8, 12] #default: [14, 12]

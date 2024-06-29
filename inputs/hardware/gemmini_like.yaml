@@ -1,0 +1,89 @@
+name: gemmini_like
+
+memories:
+  rf_W:
+    size: 8
+    r_bw: 1
+    w_bw: 1
+    r_cost: 0.01
+    w_cost: 0.01
+    area: 0.3
+    r_port: 1
+    w_port: 1
+    rw_port: 0
+    latency: 1
+    operands: [I2] #Weights
+    ports:
+      - fh: w_port_1
+        tl: r_port_1
+    served_dimensions: []
+
+  Accum:
+    size: 32768
+    r_bw: 4
+    w_bw: 4
+    r_cost: 4.54
+    w_cost: 4.54
+    area: 3
+    r_port: 0
+    w_port: 0
+    rw_port: 2
+    latency: 1
+    operands: [O]
+    ports:
+      - fh: rw_port_1
+        tl: rw_port_2
+        fl: rw_port_2
+        th: rw_port_1
+    served_dimensions: [D1]
+
+  GlbB:
+    size: 4194304
+    r_bw: 16
+    w_bw: 16
+    r_cost: 57.04
+    w_cost: 57.04
+    area: 25
+    r_port: 0
+    w_port: 0
+    rw_port: 2
+    latency: 1
+    operands: [I1, I2]
+    ports:
+      - fh: rw_port_1
+        tl: rw_port_2
+      - fh: rw_port_1
+        tl: rw_port_2
+        fl: rw_port_2
+        th: rw_port_1
+    served_dimensions: [D1, D2] # which fanout dimension to serve (Ds are the fanout dims)
+
+  dram:
+    size: 10000000000
+    r_bw: 4
+    w_bw: 4
+    r_cost: 512
+    w_cost: 512
+    area: 0
+    r_port: 0
+    w_port: 0
+    rw_port: 1
+    latency: 1
+    operands: [I1, I2, O]
+    ports:
+      - fh: rw_port_1
+        tl: rw_port_1
+      - fh: rw_port_1
+        tl: rw_port_1
+      - fh: rw_port_1
+        tl: rw_port_1
+        fl: rw_port_1
+        th: rw_port_1
+    served_dimensions: [D1, D2]
+
+operational_array:
+  input_precision: [8, 8]
+  multiplier_energy: 0.28 # pJ
+  multiplier_area: 0.1 # unit
+  dimensions: [D1, D2]
+  sizes: [16, 16]
