@@ -2,7 +2,7 @@ name: simba_like
 
 memories:
   peWeiR:
-    size: 16
+    size: 8 # without multiple buffering: 16
     r_bw: 1
     w_bw: 1
     r_cost: 0.01
@@ -19,9 +19,9 @@ memories:
     served_dimensions: []
 
   Accum:
-    size: 32768
-    r_bw: 4
-    w_bw: 4
+    size: 16384 # without multiple buffering: 32768
+    r_bw: 4096 # was 4
+    w_bw: 4096 # was 4
     r_cost: 3.03
     w_cost: 3.03
     area: 0.3
@@ -56,23 +56,25 @@ memories:
 
   unigb:
     size: 25165824
-    r_bw: 16
-    w_bw: 16
+    r_bw: 4096 # was 16
+    w_bw: 4096 # was 16
     r_cost: 2.69
     w_cost: 2.69
     area: 6
     r_port: 0
     w_port: 0
-    rw_port: 2
+    rw_port: 1 #2
     latency: 1
-    operands: [I1, O]
+    operands: [I1] # was [I1, O], but we do not model O here because it is stored only after the activation...
     ports:
       - fh: rw_port_1
-        tl: rw_port_2
-      - fh: rw_port_1
-        tl: rw_port_2
-        fl: rw_port_2
-        th: rw_port_1
+        tl: rw_port_1
+      #- fh: rw_port_1
+      #  tl: rw_port_2
+      #- fh: rw_port_1
+      #  tl: rw_port_2
+      #  fl: rw_port_2
+      #  th: rw_port_1
     served_dimensions: [D1, D2]
   
   wdram:

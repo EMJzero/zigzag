@@ -1,7 +1,7 @@
 name: simba_like
 
 memories:
-  peWeiR:
+  peWeiReg:
     size: 8
     r_bw: 128
     w_bw: 128
@@ -73,7 +73,10 @@ memories:
 
   globB:
   # HHHHHHHHHHHHHEEEEEREEEEEEE
-    size: 524288 #add two 00 to allow some MBs layers to run...
+    # Correct size: 524288
+    # Add some space, like adding two 00s at the end, to allow SALSA to run...
+    # Add two 00 to allow some MBs layers to run...
+    size: 52428800
     r_bw: 128
     w_bw: 128
     r_cost: 1.85
@@ -94,7 +97,7 @@ memories:
     served_dimensions: [D1, D2, D3]
   
   dram:
-    size: 10000000000
+    size: 1000000000000
     r_bw: 4
     w_bw: 4
     r_cost: 64

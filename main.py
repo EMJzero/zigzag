@@ -7,7 +7,7 @@ from zigzag.stages.SpatialMappingGeneratorStage import SpatialMappingGeneratorSt
 from zigzag.stages.WorkloadStage import WorkloadStage
 from zigzag.stages.WorkloadParserStage import WorkloadParserStage
 from zigzag.stages.AcceleratorParserStage import AcceleratorParserStage
-from zigzag.stages.reduce_stages import MinimalLatencyStage, SumStage
+from zigzag.stages.reduce_stages import MinimalLatencyStage, MinimalEDPStage, MinimalEnergyStage, SumStage
 from zigzag.stages.save_stages import CompleteSaveStage, PickleSaveStage, SimpleSaveStage
 from zigzag.stages.LomaStage import LomaStage
 from zigzag.parser.arguments import get_arg_parser
@@ -40,7 +40,7 @@ mainstage = MainStage(
         CompleteSaveStage,
         WorkloadStage,
         SpatialMappingGeneratorStage,
-        MinimalLatencyStage,
+        MinimalEDPStage, #MinimalLatencyStage,
         LomaStage,
         CostModelStage,
     ],
