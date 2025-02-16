@@ -19,7 +19,7 @@ memories:
     served_dimensions: []
 
   peAccB:
-    size: 1024
+    size: 16384 # Here outputs are 16 bits...
     r_bw: 128
     w_bw: 128
     r_cost: 3.93
@@ -38,7 +38,7 @@ memories:
     served_dimensions: [D3]
 
   peWeiB:
-    size: 262144 # in bits?
+    size: 262144 # in bits!!
     r_bw: 128
     w_bw: 128
     r_cost: 15.16
@@ -55,7 +55,7 @@ memories:
     served_dimensions: [D3]
 
   peInB:
-    size: 524288
+    size: 65536
     r_bw: 128
     w_bw: 128
     r_cost: 30.26
@@ -76,7 +76,7 @@ memories:
     # Correct size: 524288
     # Add some space, like adding two 00s at the end, to allow SALSA to run...
     # Add two 00 to allow some MBs layers to run...
-    size: 52428800
+    size: 524288 # salsa only -> add a 0 or 00...
     r_bw: 128
     w_bw: 128
     r_cost: 1.85

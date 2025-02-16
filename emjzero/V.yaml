@@ -1,0 +1,15 @@
+- id: 0
+  operator_type: Conv
+  equation: O[n][m][p][q]+=W[m][c][r][s]*I[n][c][iy][ix]
+  dimension_relations: [ix=1*q+1*s, iy=1*p+1*r]
+  loop_dims: [N, M, P, Q, C, R, S]
+  # N: batches, the rest as in FF and TL
+  loop_sizes: [1, 128, 28, 28, 128, 3, 3]
+  operand_precision:
+    W: 8
+    I: 8
+    O: 16
+    O_final: 8
+  operand_source:
+    I: 0
+    W: 0

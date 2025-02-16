@@ -19,7 +19,7 @@ memories:
     served_dimensions: []
 
   Accum:
-    size: 16384 # without multiple buffering: 32768
+    size: 16384 # without multiple buffering: 32768 # add a 0 for transposed convs.
     r_bw: 4096 # was 4
     w_bw: 4096 # was 4
     r_cost: 3.03
@@ -78,7 +78,7 @@ memories:
     served_dimensions: [D1, D2]
   
   wdram:
-    size: 10000000000
+    size: 1000000000000
     r_bw: 4
     w_bw: 4
     r_cost: 560
@@ -95,7 +95,7 @@ memories:
     served_dimensions: [D1, D2]
 
   iodram:
-    size: 10000000000
+    size: 1000000000000
     r_bw: 4
     w_bw: 4
     r_cost: 560

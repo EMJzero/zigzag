@@ -94,7 +94,7 @@ memories:
 #    served_dimensions: [D1, D2]
 
   sram_1M:
-    size: 1048576
+    size: 1048576 # replace with 4194304 for transposed convs.
     r_bw: 16
     w_bw: 16
     r_cost: 2.02
@@ -142,4 +142,4 @@ operational_array:
   multiplier_energy: 0.21 # pJ
   multiplier_area: 0.1 # unit
   dimensions: [D1, D2]
-  sizes: [8, 8] # VScores: [8, 8] #KQV: [8, 12] #default: [14, 12]
+  sizes: [14, 12] # VScores: [8, 8] #KQV: [8, 12] #default: [14, 12]

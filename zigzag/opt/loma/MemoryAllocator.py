@@ -308,7 +308,7 @@ class MemoryAllocator:
             if size_comb > mem_capacity:
                 if i == 0:
                     raise MemoryTooSmallException(
-                        """The memory can't store all loops assigned to lower level memories. Likely due to spatial 
+                        f"""The memory {node.name} can't store all loops assigned to lower level memories. Likely due to spatial 
                         unrolling."""
                     )
                 continue
