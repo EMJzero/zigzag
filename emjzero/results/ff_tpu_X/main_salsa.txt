@@ -1,22 +1,22 @@
 Loop ordering for Layer0
 =========================================================================
-Temporal Loops                          O          W          I          
+Temporal Loops                          W          O          I          
 =========================================================================
-for R in [0, 3):                        Accum      wfifo      unigb      
+for R in [0, 3):                        wfifo      Accum      unigb      
 -------------------------------------------------------------------------
-  for S in [0, 3):                      Accum      wfifo      unigb      
+  for S in [0, 3):                      wfifo      Accum      unigb      
 -------------------------------------------------------------------------
-    for P in [0, 2):                    Accum      peWeiR     unigb      
+    for Q in [0, 7):                    peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
-      for P in [0, 2):                  Accum      peWeiR     unigb      
+      for P in [0, 2):                  peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
-        for Q in [0, 7):                Accum      peWeiR     unigb      
+        for Q in [0, 2):                peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
-          for Q in [0, 2):              Accum      peWeiR     unigb      
+          for P in [0, 2):              peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
-            for P in [0, 7):            Accum      peWeiR     unigb      
+            for Q in [0, 2):            peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
-              for Q in [0, 2):          Accum      peWeiR     unigb      
+              for P in [0, 7):          peWeiR     Accum      unigb      
 -------------------------------------------------------------------------
 =========================================================================
 Spatial Loops                                                            
@@ -26,4 +26,4 @@ Spatial Loops
                 parfor C in [0, 72):                                     
 -------------------------------------------------------------------------
 
-Execution time: 51.367s
+Execution time: 50.849s

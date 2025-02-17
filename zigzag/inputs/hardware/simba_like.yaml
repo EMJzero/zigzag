@@ -98,8 +98,8 @@ memories:
   
   dram:
     size: 1000000000000
-    r_bw: 4
-    w_bw: 4
+    r_bw: 400 # was 4, but caused trubles with sp. fanouts
+    w_bw: 400 # was 4, but caused trubles with sp. fanouts
     r_cost: 64
     w_cost: 64
     area: 0

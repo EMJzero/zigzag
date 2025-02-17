@@ -22,4 +22,4 @@ Spatial Loops
             parfor C in [0, 192):                                    
 ---------------------------------------------------------------------
 
-Execution time: 6.129s
+Execution time: 6.706s

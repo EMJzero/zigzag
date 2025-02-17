@@ -1,18 +1,18 @@
 Loop ordering for Layer0
 =====================================================================
-Temporal Loops                      I          O          W          
+Temporal Loops                      W          I          O          
 =====================================================================
-for R in [0, 3):                    unigb      Accum      wdram      
+for R in [0, 3):                    wdram      unigb      Accum      
 ---------------------------------------------------------------------
-  for S in [0, 3):                  unigb      Accum      wfifo      
+  for S in [0, 3):                  wfifo      unigb      Accum      
 ---------------------------------------------------------------------
-    for P in [0, 7):                unigb      Accum      peWeiR     
+    for P in [0, 7):                peWeiR     unigb      Accum      
 ---------------------------------------------------------------------
-      for Q in [0, 2):              unigb      Accum      peWeiR     
+      for Q in [0, 2):              peWeiR     unigb      Accum      
 ---------------------------------------------------------------------
-        for Q in [0, 7):            unigb      Accum      peWeiR     
+        for Q in [0, 7):            peWeiR     unigb      Accum      
 ---------------------------------------------------------------------
-          for P in [0, 2):          unigb      Accum      peWeiR     
+          for P in [0, 2):          peWeiR     unigb      Accum      
 ---------------------------------------------------------------------
 =====================================================================
 Spatial Loops                                                        
@@ -22,4 +22,4 @@ Spatial Loops
             parfor C in [0, 256):                                    
 ---------------------------------------------------------------------
 
-Execution time: 6.307s
+Execution time: 7.103s

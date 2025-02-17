@@ -14,10 +14,13 @@ for main in "${mains[@]}"; do
         for val2 in "${list2[@]}"; do
             echo Handling ${val2} ${val1} with ${main}
 
+            # python3.11 fix_spatials.py ${val2} ${val1}
+
             { time_output=$( { time python3.11 ${main}.py \
                 --mapping zigzag/inputs/mapping/${val2}_like_conv.yaml \
                 --model emjzero/${val1}.yaml \
                 --accelerator zigzag/inputs/hardware/${val2}_like.yaml; } 2>&1 | tee /dev/tty ); } 2>&1
+                # --accelerator zigzag/inputs/hardware/tmp.yaml; } 2>&1 | tee /dev/tty ); } 2>&1
 
             mkdir emjzero/results/${val2}_${val1}
             python3.11 visualization.py | tee emjzero/results/${val2}_${val1}/${main}.txt
